@@ -1,0 +1,104 @@
+﻿* #Reset
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+a {text-decoration:none;color:black}
+
+
+    
+    
+#contenido {	
+margin:auto;
+width:990px;
+padding:2px;
+float:left;
+margin-left:200px;
+border:1px solid black;
+
+}
+
+#formulario {
+width:615px;
+float:left;
+background:#EDEEF3;
+min-height:500px;
+padding:5px;
+}
+#descripcion_form {
+    float:left;
+margin-top:-20px;}
+
+#eliminar {
+float:right;
+margin-top:-20px;
+}
+.marcado_pest{
+	border:2px dashed red !important;background:red;color:white;
+	}
+	.ui-tabs-anchor{padding:2px 0 2px 0;}
+
+.marcado{border:2px dashed red !important;}
+
+fieldset{background:white;cursor:pointer;}
+fieldset li:hover{background:#EDEEF3;}
+#opciones {
+width:350px;
+float:right;
+background:#edeef3;
+
+padding:5px;
+border:1px solid black;
+font-size:14px;
+margin:100px 0 0 0;
+}
+
+
+.label_opciones{float:left; width:75px}
+.imagen_opciones{cursor:pointer;float:left;display:inline;margin:0 20px 0 0px; padding:1px}
+#tabs-3 input{width:300px}
+
+.ancho10{width:10px}
+.ancho20{width:20px}
+.ancho30{width:30px}
+.ancho40{width:40px; text-align:right;}
+.ancho100{width:100px;}
+.ancho200{width:200px}
+.ancho300{width:300px}
+.ancho400{width:400px}
+
+.margen_opciones{margin:20px 0 0 0px;}
+
+.elementos {
+    border:1px solid black;
+    width:100px;
+    padding: 5px;
+    cursor:pointer;
+    margin:5px;
+}
+    
+.tab{display:inline;margin-right:10px;font-size:12px;}
+#tabs ul{margin:0 0 0 -20px;}
+#prueba li {
+list-style: none;
+
+padding:5px 5px 5px 5px;
+width:100%;
+margin: 5px -25px;
+}

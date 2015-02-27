@@ -1,0 +1,337 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Generador de formularios</title>
+    <link rel="stylesheet" type="text/css" href="estilo/estilo3.css" />
+    <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.1.custom.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#tabs").tabs();
+        });
+        $(function () {
+            $("#prueba").sortable(
+					{
+					axis: "y",
+					delay: 250,
+					placeholder: "fondo_sort"
+					});
+			//$("#prueba").disableSelection();
+            
+        });
+        $(document).ready(function () {
+		
+		
+			/*Cmabiar color de pestaña seleccionada*/
+			$('#ui-id-1').addClass('marcado_pest');
+			$('.ui-tabs-anchor').live("click",function() {
+			
+				$(".ui-tabs-anchor").removeClass('marcado_pest');
+				$(this).toggleClass('marcado_pest');
+			});
+		
+			/*Valores para el llimite de caracteres*/
+			/*Para cambiar el nomre del formulario y la descipción*/
+			$('#nombre_formulario').val($('#nombre_form').text());
+			$('#nombre_formulario').live("keyup",function(){
+					$('#nombre_form').text($(this).val())
+				});
+			
+			$('#descripcion_formulario').val($('#descripcion_form').text());
+			$('#descripcion_formulario').live("keyup",function(){
+					$('#descripcion_form').text($(this).val())
+				});
+				
+			/*Eventos al pulsar campo requerido*/
+			$('#input_requerido').live("click",function() {
+				var elemento_marcado=$(".marcado").attr('id').split("_");
+				switch(elemento_marcado[0])
+					{
+					case "text":
+						if($(this).is(':checked')) {
+							$('#txt_text_form_'+elemento_marcado[1]+'').addClass('required');
+							$('.marcado label').after("&nbsp;<span>*</span>");
+							}
+						else{
+							$('#txt_text_form_'+elemento_marcado[1]+'').removeClass('required');
+							$('.marcado span').html("");
+							}
+						break;
+					
+					
+					case "textarea":
+						if($(this).is(':checked')) {
+							$('#textarea_form_'+elemento_marcado[1]+'').addClass('required');
+							$('.marcado label').after("&nbsp;<span>*</span>");
+							}
+						else{
+							$('#textarea_form_'+elemento_marcado[1]+'').removeClass('required');
+							$('.marcado span').html("");
+							}
+						break;
+						
+					case "drop":
+						if($(this).is(':checked')) {
+							$('#drop_form_'+elemento_marcado[1]+'').addClass('required');
+							$('.marcado label').after("&nbsp;<span>*</span>");
+							}
+						else{
+							$('#drop_form_'+elemento_marcado[1]+'').removeClass('required');
+							$('.marcado span').html("");
+							}
+						break;
+					
+					}
+			});
+			
+		/*Evento para el cambio de max-length y min length*/
+		$('#max_caracter').live("change",function() {var elemento_marcado=$(".marcado").attr('id').split("_");
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			switch(elemento_marcado[0])
+			{
+					case "text":
+						$('#txt_text_form_'+elemento_marcado[1]+'').attr('maxlength',parseInt($(this).val()));
+						break;
+					case "textarea":
+						$('#textarea_form_'+elemento_marcado[1]+'').attr('maxlength',parseInt($(this).val()));
+						break;
+						
+			}
+			
+		});
+		
+		$('#min_caracter').live("change",function() {var elemento_marcado=$(".marcado").attr('id').split("_");
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			switch(elemento_marcado[0])
+			{
+					case "text":
+						$('#txt_text_form_'+elemento_marcado[1]+'').attr('minlength',parseInt($(this).val()));
+						break;
+					case "textarea":
+						$('#textarea_form_'+elemento_marcado[1]+'').attr('minlength',parseInt($(this).val()));
+						break;
+						
+			}
+			
+			
+		});
+		
+		
+		/*Camio de columnas y filas*/
+		
+		$('#num_cols').live("keyup",function() {
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			switch(elemento_marcado[0])
+			{
+					case "textarea":
+						$('#textarea_form_'+elemento_marcado[1]+'').attr('cols',parseInt($(this).val()));
+						break;
+			}
+
+		
+		});
+		
+		$('#num_rows').live("keyup",function() {
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			switch(elemento_marcado[0])
+			{
+					case "textarea":
+						$('#textarea_form_'+elemento_marcado[1]+'').attr('rows',parseInt($(this).val()));
+						break;
+						
+			}
+
+		
+		});
+		
+		
+		
+		/*Modificar las opciones del drop*/
+		$('.input_opciones_drop').live("change",function () {
+			var id=$(this).attr('id');
+			var indice=id.split("_");
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			$('#drop_form_'+elemento_marcado[1]+' option[name=opcion_'+ indice[1] +']').attr("value",$(this).val());
+			//alert($('#drop_form_'+elemento_marcado[1]+' option[name=opcion_'+ indice[1] +']').attr("value"));
+			$(".marcado").click();
+		});
+		
+		
+		
+		/*Añadir opcion a los select*/
+		$('#anadir_option').live("click",function () {
+			
+			var elemento_marcado=$(".marcado").attr('id').split("_");
+			var i=0;
+			$('#drop_form_'+elemento_marcado[1]+' option').each(function(){
+			i=i+1;
+			});
+			$('#drop_form_'+elemento_marcado[1]+'').append("<option name='opcion_"+parseInt(i+1)+"' value='opcion"+ parseInt(i+1) +"'></option>");
+			$(".marcado").click();
+			
+			
+			
+		
+		});
+		$('#eliminar_option').live("click",function () {
+		
+			var elemento_marcado=$(".marcado").attr('id').split("_");			
+			$('#drop_form_'+elemento_marcado[1]+' :last-child').remove();
+			$(".marcado").click();
+			
+						
+			
+		
+		});
+					
+/*Añadir clase a elemento seleccionado*/
+	$(".fondo_sort").live("click",function () {
+				$(".fondo_sort").removeClass('marcado');
+				$(this).toggleClass('marcado');
+				$("#propiedades_input").click();
+				/*Obtenemos etiqueta del campo marcado*/
+				//$("#tabs-2").html("T&iacute;tulo: <input type='text' id='text_titulo' value='"+ $('.marcado label').text() +"' />");
+				var html="<ul><li><label class='label_opciones'>T&iacute;tulo:</label> <input type='text' id='text_titulo' value='"+ $('.marcado label').text() +"' /></li>";
+				
+				var elemento=$(".marcado").attr('id').split("_");
+				
+				/*Detrerminamos que tipo de elemento hay dentro de la etiquea de marcado*/
+				switch (elemento[0]) {
+					case "text":
+							//alert($("#txt_text_form_"+elemento[1]+"").val());
+							var requerido;
+							if ($('#txt_text_form_'+elemento[1]+'').hasClass('required')) requerido='checked';
+							else requerido='';
+							/*determinamos el valor del rango max y min*/
+							var max=parseInt($('#txt_text_form_'+elemento[1]+'').attr("maxlength"));
+							var min=parseInt($('#txt_text_form_'+elemento[1]+'').attr("minlength"));
+							//$(this).addClass('deseleccion');							
+							//$(this).removeClass('seleccion');
+							html=html+"<li><label class='label_opciones'>Obligatorio: </label><input type='checkbox' id='input_requerido' "+requerido+" /></li><li><label class='label_opciones'> M&aacute;x caract:</label><input type='text' value='"+max+"' id='max_caracter' class='ancho40' /></li><li><label class='label_opciones'>Min caract:</label><input type='text' value='"+min+"' id='min_caracter' class='ancho40' /></li></ul>";
+							//$("#tabs-2").append("Obligatorio: <input type='checkbox' id='input_requerido' "+requerido+" /></br> M&aacute;x caract: <input type='text' value='"+max+"' id='max_caracter' class='ancho40' /></br>Min caract: <input type='text' value='"+min+"' id='min_caracter' class='ancho40' />");
+							$("#tabs-2").html(html);
+							break;
+					case "textarea":
+							var requerido;
+							if ($('#textarea_form_'+elemento[1]+'').hasClass('required')) requerido='checked';
+							else requerido='';
+							var max=parseInt($('#textarea_form_'+elemento[1]+'').attr("maxlength"));
+							var min=parseInt($('#textarea_form_'+elemento[1]+'').attr("minlength"));
+							var cols=parseInt($('#textarea_form_'+elemento[1]+'').attr("cols"));
+							var rows=parseInt($('#textarea_form_'+elemento[1]+'').attr("rows"));
+							html=html+"<li><label class='label_opciones'>Obligatorio: </label><input type='checkbox' id='input_requerido' "+requerido+" /></li><li><label class='label_opciones'>M&aacute;x caract: </label><input type='text' value='"+max+"' id='max_caracter' class='ancho40' /></li><li><label class='label_opciones'>Min caract: </label><input type='text' value='"+min+"' id='min_caracter' class='ancho40' /><li/><li><label class='label_opciones'>Columnas: </label><input type='text' id='num_cols' value='"+cols+"' class='ancho40' /><li/><li><label class='label_opciones'>Filas: </label><input type='text' id='num_rows' value='"+rows+"' class='ancho40' /></li></ul>";
+							//$("#tabs-2").append("Obligatorio: <input type='checkbox' id='input_requerido' "+requerido+" /></br> M&aacute;x caract: <input type='text' value='"+max+"' id='max_caracter' class='ancho40' /></br>Min caract: <input type='text' value='"+min+"' id='min_caracter' class='ancho40' /><br/>Columnas: <input type='text' id='num_cols' value='"+cols+"' class='ancho40' /><br/>Filas: <input type='text' id='num_rows' value='"+rows+"' class='ancho40' />");
+							$("#tabs-2").html(html);
+							
+							break;
+					case "drop":
+							var requerido;
+							if ($('#drop_form_'+elemento[1]+'').hasClass('required')) requerido='checked';
+							else requerido='';
+							//$("#tabs-2").append("Obligatorio: <input type='checkbox' id='input_requerido' "+requerido+" /><br/>Opciones:");
+							html=html+"<li><label class='label_opciones'>Obligatorio: </label><input type='checkbox' id='input_requerido' "+requerido+" /></li>";
+							var a=1;
+							$('#drop_form_'+elemento[1]+' option').each(function(){
+								//$("#tabs-2").append("<br/>Valor de opcion : <input type='text' id='opcion_"+a+"' value='"+$(this).attr('value')+"' />");
+								html=html+"<li><label class='label_opciones'>Opción"+a+" : </label><input class='ancho100 input_opciones_drop' type='text' id='opcion_"+a+"' value='"+$(this).attr('value')+"' /></li>";
+								a=a+1;
+								});
+							$("#tabs-2").html(html+"<li><img class='imagen_opciones' id='anadir_option' src='imagenes/16x16/add.png' title='A&ntilde;adir opci&oacute;n'/><img class='imagen_opciones' id='eliminar_option' src='imagenes/16x16/delete.png' title='Eliminar opci&oacute;n'/> </li></ul>");
+							break;
+					default:
+                        //alert("Soy otra cosa");
+				
+				}
+	});
+	
+	
+	/*Modificacion del título para todos los inputs*/
+		$('#text_titulo').live("keyup",function(){
+					$(".marcado label").text($(this).val());
+				});
+				
+/*Añadir elementos al formulario*/
+            $('.elementos').dblclick(function () {
+                var tipo = $(this).attr("id");
+				$('#'+tipo+' input').val( parseInt($('#'+tipo+' input').val())+1);
+				var num=parseInt($('#'+tipo+' input').val());
+				
+                switch (tipo) {
+                    case "ele_textbox":
+					
+                        $("#prueba").append(
+                         "<li class='fondo_sort' id='text_"+num+"'><label>Entrada de texto:</label><br/><input type='text' id='txt_text_form_"+num+"' name='txt_text_form_"+num+"' maxlength='50' minlength='0'  /></li>"
+                         );
+						 
+                        break;
+                    case "ele_parrafo":
+                        $("#prueba").append(
+                        "<li class='fondo_sort' id='textarea_"+num+"'><label>Resumen:</label><br /><textarea id='textarea_form_"+num+"' name='textarea_form_"+num+"' cols='50' rows='4' maxlength='1000' minlength='0'></textarea></li>"
+                    );
+                        break;
+						
+					case "ele_dropdown":
+                        $("#prueba").append(
+                        "<li class='fondo_sort' id='drop_"+num+"'><label>Resumen:</label><br /><select id='drop_form_"+num+"' name='drop_form_"+num+"' ><option name='opcion_"+num+"' value='opcion1'>Opci&oacute;n1</option></li>"
+                    );
+                        break;
+                    default:
+                        alert(tipo);
+
+                }		
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+<div id="contenido">
+    <div id="formulario">
+       <fieldset>
+            <h2><label id="nombre_form">Nombre del formulario</label></h2>
+            <label id="descripcion_form">Descripción del formulario</label>
+        </fieldset>
+        <fieldset>
+            <ul id="prueba">
+
+            </ul>
+        </fieldset>
+    </div>
+
+
+    <div id="opciones">
+		<div id="tabs">
+		    <ul>
+		    <li class="tab"><a href="#tabs-1">Añadir Campo</a></li>
+		    <li class="tab"><a id="propiedades_input" href="#tabs-2">Propiedades Campo</a></li>
+		    <li class="tab"><a href="#tabs-3">Propiedades Formulario</a></li>
+		    </ul>
+		    <div id="tabs-1" class="margen_opciones">
+		    <ul>
+		    <li id="ele_textbox" class="elementos">Text <input type="text" class="ancho10" value="0" /></li>
+		    <li id="ele_parrafo" class="elementos">Parrafo<input type="text" class="ancho10" value="0" /></li>
+			<li id="ele_dropdown" class="elementos">Drop Down<input type="text" class="ancho10" value="0" /></li>
+		    <li id="ele_fecha" class="elementos">Fecha<input type="text" class="ancho10" value="0" /></li>
+		    <li id="ele_numero" class="elementos">Numero<input type="text" class="ancho10" value="0" /></li>
+		    <li id="ele_checkbox" class="elementos">CheckBox<input type="text" class="ancho10" value="0" /></li>
+		   
+		    
+		    </ul>
+		</div>
+		<div id="tabs-2" class="margen_opciones">
+		    <p>Propiedades del input</p>
+		</div>
+	    	<div id="tabs-3" class="margen_opciones">
+		        <label for="nombre_formulario">Nombre Formulario</label><input type="text" id="nombre_formulario" />
+		        <label for="descripcion_formulario">Descripci&oacute;n Formulario</label><input type="text" id="descripcion_formulario" />
+		    </div>
+		</div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
