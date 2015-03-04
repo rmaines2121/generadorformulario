@@ -19,7 +19,8 @@
 	q:before, q:after {
 		content: '';
 		content: none; }
-a {text-decoration:none;color:black}
+/*a {text-decoration:none;color:black}*/
+a {text-decoration:none;color:blue}
 
 
     
